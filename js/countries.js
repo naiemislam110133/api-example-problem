@@ -18,10 +18,21 @@ const displayCountres = countries =>{
         countryDiv.innerHTML = `
             <h3>country name: ${country.name.common}</h3>
             <p>country details: ${country.capital ? country.capital[0] : 'Not Capital'}</p>
+            <button onclick="">Details</button>
         `;
         countriesContainer.appendChild(countryDiv);
         
     });
+
+    const loadCountryInfo = (code) =>{
+        // https://restcountries.com/v3.1/alpha/{code}
+        const url = `https://restcountries.com/v3.1/alpha/${code}`
+        // console.log("countries details code:", code);
+        fetch(url)
+        .then(res => res.json())
+        .then(data =>displayCountryDetail(data))
+        
+    }
 
 }
 
