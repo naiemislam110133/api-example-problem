@@ -15,25 +15,34 @@ const displayCountres = countries =>{
     countries.forEach(country => {
         console.log(country);
         const countryDiv = document.createElement('div');
+        countryDiv.classList.add('country');
         countryDiv.innerHTML = `
             <h3>country name: ${country.name.common}</h3>
-            <p>country details: ${country.capital ? country.capital[0] : 'Not Capital'}</p>
-            <button onclick="">Details</button>
+            <p>country details: ${country.capital ? country.capital[0] : 'No Capital'}</p>
+            <button onclick = "loadCountryInfo('${country.cca2}')">Details</button>
         `;
         countriesContainer.appendChild(countryDiv);
         
     });
-
-    const loadCountryInfo = (code) =>{
-        // https://restcountries.com/v3.1/alpha/{code}
-        const url = `https://restcountries.com/v3.1/alpha/${code}`
-        // console.log("countries details code:", code);
-        fetch(url)
-        .then(res => res.json())
-        .then(data =>displayCountryDetail(data))
-        
-    }
-
 }
+
+const loadCountryInfo = (code) =>{
+    // https://restcountries.com/v3.1/alpha/{code}
+    const url = `https://restcountries.com/v3.1/alpha/${code}`
+    // console.log("countries details code:", code);
+
+    fetch(url)
+    .then(res => res.json())
+    .then(data => displayCountryDetail(data[0]))
+}
+
+const displayCountryDetail = country => {
+    const countryDetail = document.getElementById('country-detail');
+    countryDetail.innerHTML = `
+        <h2>Name: ${country.name.common}</h2>
+        <img src = "${country.flags.svg}">
+    `
+}
+
 
 loadCountries();
