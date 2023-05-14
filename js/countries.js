@@ -38,9 +38,10 @@ const loadCountryInfo = (code) =>{
 
 const displayCountryDetail = country => {
     const countryDetail = document.getElementById('country-detail');
+    // console.log(country);
     countryDetail.innerHTML = `
-        <h2>Name: ${country.name.common}</h2>
-        <img src = "${country.flags.svg}">
+        <h2>Country Code: ${country.cca3}</h2>
+        <img src = "${country.flags.png}">
     `
 }
 
